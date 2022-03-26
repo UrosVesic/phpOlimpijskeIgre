@@ -1,3 +1,14 @@
+<?php
+require "dbBroker.php";
+
+session_start();
+
+if (!isset($_SESSION['korisnik_username'])) {
+  header('Location:index.php');
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +30,7 @@
 
   <div class="jumbotron text-center" style="margin-bottom:0">
     <h1>Olimpijada 2020</h1>
-    <p>Dobrodosli</p>
+    <p>Dobrodosli <?php echo $_SESSION['korisnik_username'] ?></p>
   </div>
 
   <nav class="navbar navbar-inverse">
@@ -35,8 +46,6 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="registracija">Registracija</a></li>
-          <!-- <li><a href="prikaz">Page 3</a></li> -->
         </ul>
       </div>
     </div>
