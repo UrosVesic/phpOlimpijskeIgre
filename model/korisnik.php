@@ -13,9 +13,9 @@ class Korisnik
         $this->imePrezime = $imePrezime;
     }
 
-    public static function prijaviSe($usr, mysqli $conn)
+    public  function prijaviSe(mysqli $conn)
     {
-        $query = "SELECT * FROM user WHERE username='$usr->username' and password='$usr->password'";
+        $query = "SELECT * FROM user WHERE username='$this->username' and password='$this->password'";
         return $conn->query($query);
     }
 }
