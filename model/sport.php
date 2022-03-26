@@ -10,4 +10,10 @@ class Sport
         $this->id = $id;
         $this->naziv = $naziv;
     }
+
+    public static function getById($id, mysqli $conn)
+    {
+        $query = "SELECT * FROM sport WHERE idSporta = $id";
+        return $conn->query($query);
+    }
 }
