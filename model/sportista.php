@@ -17,4 +17,10 @@ class Sportista
         $this->sport = $sport;
         $this->zemlja = $zemlja;
     }
+
+    public static function getAll(mysqli $conn)
+    {
+        $query = "SELECT * FROM Sportista";
+        return $conn->query($query);
+    }
 }
