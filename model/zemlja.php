@@ -11,6 +11,12 @@ class Zemlja
         $this->naziv = $naziv;
     }
 
+    public static function getAll(mysqli $conn)
+    {
+        $query = "SELECT * FROM Zemlja";
+        return $conn->query($query);
+    }
+
     public static function getById($id, mysqli $conn)
     {
         $query = "SELECT * FROM zemlja WHERE idZemlje = $id";
