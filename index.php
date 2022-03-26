@@ -10,11 +10,16 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
   $korisnik = new Korisnik($uname, $upass, null);
   $odgovor = $korisnik->prijaviSe($conn);
 
-  if ($odgovor->num_rows == 1) {
 
+  if ($odgovor->num_rows == 1) {
     $_SESSION['korisnik_username'] = $korisnik->username;
     header('Location: pocetna.php');
+    $message = "Uspesno";
     exit();
+    echo "<script>alert('$message');</script>";
+  } else {
+    $message = "Neuspesno";
+    echo "<script>alert('$message');</script>";
   }
 }
 ?>
@@ -57,8 +62,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="registracija">Registracija</a></li>
-          <!-- <li><a href="prikaz">Page 3</a></li> -->
         </ul>
       </div>
     </div>
@@ -75,19 +78,19 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
               <tr>
                 <td>Korime:</td>
                 <td>
-                  <input type='text' name='korime'>
+                  <input type='text' name='username'>
                 </td>
               </tr>
               <tr>
                 <td>Lozinka:</td>
                 <td>
-                  <input type='password' name='lozinka'>
+                  <input type='text' name='password'>
                 </td>
               </tr>
 
               <tr>
                 <td colspan='2'>
-                  <button>Prijava</button>
+                  <button type="submit" name="submit">Prijavi se</button>
                 </td>
               </tr>
 
