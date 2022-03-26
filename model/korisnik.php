@@ -15,7 +15,7 @@ class Korisnik
 
     public  function prijaviSe(mysqli $conn)
     {
-        $query = "SELECT * FROM user WHERE username='$this->username' and password='$this->password'";
+        $query = "SELECT * FROM korisnik WHERE username='$this->username' and password='$this->password'";
         return $conn->query($query);
     }
 }
