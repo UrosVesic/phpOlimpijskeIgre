@@ -8,9 +8,9 @@ session_start();
 
 if (!isset($_SESSION['korisnik_username'])) {
   header('Location:index.php');
-
   exit();
 }
+
 $rezultat = Sportista::getAll($conn);
 $zemlje = Zemlja::getAll($conn);
 $sportovi = Sport::getAll($conn);
@@ -76,14 +76,21 @@ if ($rezultat->num_rows ==  0) {
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
-
+          <h2>Pretrazi sportistu po sportu</h2>
+          <br>
+          <div>
+            <form id="pretrazi" action="#" method="POST">
+              <input type='text' id='sportPretraga'>
+              <button type="button" onclick="funkcijaZaPretragu()">Pretrazi sportistu</button>
+            </form>
+          </div>
         </div>
 
         <div class="col-sm-4">
           <h2>Dodaj sportistu</h2>
           <br>
           <div>
-            <form id="dodajPretrazi" action="#" method="POST">
+            <form id="dodaj" action="#" method="POST">
               <table>
                 <tr>
                   <td>Ime:</td>
@@ -94,7 +101,7 @@ if ($rezultat->num_rows ==  0) {
                 <tr>
                   <td>Prezime:</td>
                   <td>
-                    <input type='text' name='rezime'>
+                    <input type='text' name='prezime'>
                   </td>
                 </tr>
                 <tr>
@@ -122,7 +129,9 @@ if ($rezultat->num_rows ==  0) {
                 <tr>
                   <td colspan='2'>
                     <button type="submit" id="dodaj">Dodaj sportistu</button>
-                    <button type="submit" id="pretrazi">Pretrazi sportistu</button>
+                    <button type="submit" id="azuriraj">Azuriraj sportistu</button>
+                    <button type="submit" id="obrisi">Obrisi sportistu</button>
+
 
                   </td>
                 </tr>
@@ -141,27 +150,38 @@ if ($rezultat->num_rows ==  0) {
               </select>
             </div>
             <div>
-              <table>
-                <tr>
-                  <th>ime</th>
-                  <th>prezime</th>
-                  <th>sport</th>
-                  <th>zemlja</th>
-                </tr>
-                <?php
-                while ($red = $rezultat->fetch_array()) : ?>
+              <table id="myTable">
+                <thead>
                   <tr>
-                    <td><?php echo $red["Ime"] ?></td>
-                    <td><?php echo $red["Prezime"] ?></td>
-                    <td><?php
-                        $sport = Sport::getById($red["Sport"], $conn)->fetch_array();
-                        echo $sport["Naziv"] ?></td>
-                    <td><?php
-                        $zemlja = Zemlja::getById($red["Zemlja"], $conn)->fetch_array();
-                        echo $zemlja["Naziv"] ?></td>
-                <?php endwhile;
-              } ?>
+                    <th>ime</th>
+                    <th>prezime</th>
+                    <th>sport</th>
+                    <th>zemlja</th>
                   </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  while ($red = $rezultat->fetch_array()) : ?>
+                    <tr>
+                      <td><?php echo $red["Ime"] ?></td>
+                      <td><?php echo $red["Prezime"] ?></td>
+                      <td><?php
+                          $sport = Sport::getById($red["Sport"], $conn)->fetch_array();
+                          echo $sport["Naziv"] ?></td>
+                      <td><?php
+                          $zemlja = Zemlja::getById($red["Zemlja"], $conn)->fetch_array();
+                          echo $zemlja["Naziv"] ?></td>
+                      <td>
+                        <label class="custom-radio-btn">
+                          <input type="radio" name="checked-donut" value=<?php echo $red["idSportiste"] ?>>
+                          <span class="checkmark"></span>
+                        </label>
+                      </td>
+                  <?php endwhile;
+                }
+                  ?>
+                    </tr>
+                </tbody>
               </table>
             </div>
 
@@ -182,117 +202,112 @@ if ($rezultat->num_rows ==  0) {
 
 
 
-            <!DOCTYPE html>
-            <html>
 
-            <head>
-              <meta name="viewport" content="width=device-width, initial-scale=1">
-              <style>
-                body {
-                  font-family: Arial, Helvetica, sans-serif;
-                }
+            <style>
+              body {
+                font-family: Arial, Helvetica, sans-serif;
+              }
 
-                /* Full-width input fields */
-                input[type=text],
-                input[type=password] {
-                  width: 100%;
-                  padding: 12px 20px;
-                  margin: 8px 0;
-                  display: inline-block;
-                  border: 1px solid #ccc;
-                  box-sizing: border-box;
-                }
+              /* Full-width input fields */
+              input[type=text],
+              input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+              }
 
-                /* Set a style for all buttons */
-                button {
-                  background-color: #ff5e00;
-                  color: white;
-                  padding: 12px 18px;
-                  margin: 5px 0;
-                  border: none;
-                  cursor: pointer;
-                  width: 100%;
-                }
+              /* Set a style for all buttons */
+              button {
+                background-color: #ff5e00;
+                color: white;
+                padding: 12px 18px;
+                margin: 5px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+              }
 
-                button:hover {
-                  opacity: 0.8;
-                }
-
-                /* Extra styles for the cancel button */
-                /* .cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-} */
-
-
-
-                .container {
-                  padding: 4px;
-                }
-
-                /* span.psw {
-  float: right;
-  padding-top: 16px;
-} */
-
-                /* The Modal (background) */
-
-
-                /* Modal Content/Box */
-
-
-                /* The Close Button (x) */
+              button:hover {
+                opacity: 0.8;
+              }
 
 
 
 
-                /* Add Zoom Animation */
+              .container {
+                padding: 4px;
+              }
 
 
 
 
-                /* Change styles for span and cancel button on extra small screens */
-              </style>
-            </head>
+              table1 {
+                border-spacing: 0;
+                width: 100%;
+                border: 1px solid #ddd;
+              }
 
-            <body>
+              th,
+              td {
+                text-align: left;
+                padding: 16px;
+              }
 
-
-
-              <script>
-                // Get the modal
-              </script>
-
-            </body>
-
-            </html>
-
-            <!DOCTYPE html>
-            <html>
-
-            <head>
-              <style>
-                table1 {
-                  border-spacing: 0;
-                  width: 100%;
-                  border: 1px solid #ddd;
-                }
-
-                th,
-                td {
-                  text-align: left;
-                  padding: 16px;
-                }
-
-                tr:nth-child(even) {
-                  background-color: #f2f2f2
-                }
-              </style>
-            </head>
+              tr:nth-child(even) {
+                background-color: #f2f2f2
+              }
+            </style>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
             <script src="js/main.js"></script>
+
+            <script>
+              function sortTable() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("myTable");
+                switching = true;
+
+                while (switching) {
+                  switching = false;
+                  rows = table.rows;
+                  for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[1];
+                    y = rows[i + 1].getElementsByTagName("TD")[1];
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                      shouldSwitch = true;
+                      break;
+                    }
+                  }
+                  if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                  }
+                }
+              }
+
+              function funkcijaZaPretragu() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("sportPretraga");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                  td = tr[i].getElementsByTagName("td")[2];
+                  if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                      tr[i].style.display = "";
+                    } else {
+                      tr[i].style.display = "none";
+                    }
+                  }
+                }
+              }
+            </script>
   </body>
 
   </html>
