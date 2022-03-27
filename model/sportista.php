@@ -18,15 +18,29 @@ class Sportista
         $this->zemlja = $zemlja;
     }
 
-    public function add(mysqli $conn)
+    public static function add($sportista, mysqli $conn)
     {
-        $query = "INSERT INTO sportista VALUES ($this->ime,$this->prezime,$this->sport,$this->zemlja)";
+        $query = "INSERT INTO sportista (Ime,Prezime,Sport,Zemlja) VALUES ('$sportista->ime','$sportista->prezime',$sportista->sport,$sportista->zemlja)";
         return $conn->query($query);
     }
 
     public static function getAll(mysqli $conn)
     {
         $query = "SELECT * FROM Sportista";
+        return $conn->query($query);
+    }
+
+    public static function getBySport($sportName, $conn)
+    {
+        $sport = Sport::getByName($sportName, $conn)->fetch_array();
+        $idSporta = $sport['idSporta'];
+        $query = "SELECT * FROM sportista WHERE Sport = $idSporta";
+        return $conn->query($query);
+    }
+
+    public  function delete($conn)
+    {
+        $query = "DELETE FROM sportista WHERE idSportiste = $this->id";
         return $conn->query($query);
     }
 }
