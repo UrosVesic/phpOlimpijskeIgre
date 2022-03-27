@@ -40,9 +40,7 @@ if ($rezultat->num_rows ==  0) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+
     <style>
       .fakeimg {
         height: 200px;
@@ -79,52 +77,58 @@ if ($rezultat->num_rows ==  0) {
       <div class="row">
         <div class="col-sm-4">
 
-          <div class="fakeimg">
-
-          </div>
         </div>
 
         <div class="col-sm-4">
-          <h2>Pretrazi sportistu</h2>
+          <h2>Dodaj sportistu</h2>
           <br>
           <div>
-            <table>
-              <tr>
-                <td>Ime i prezime:</td>
-                <td>
-                  <input type='text' name='imeIPrezime'>
-                </td>
-              </tr>
-              <tr>
-                <td>Zemlja:</td>
-                <td>
-                  <select name='zemlja'>
-                    <?php while ($zemlja = $zemlje->fetch_array()) :  ?>
-                      <option> <?php echo $zemlja['Naziv']; ?> </option>
-                    <?php endwhile; ?>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>Sport:</td>
-                <td>
-                  <select name='sport'>
-                    <?php while ($sport = $sportovi->fetch_array()) :  ?>
-                      <option> <?php echo $sport['Naziv']; ?> </option>
-                    <?php endwhile; ?>
-                  </select>
-                </td>
-              </tr>
+            <form id="dodajPretrazi" action="#" method="POST">
+              <table>
+                <tr>
+                  <td>Ime:</td>
+                  <td>
+                    <input type='text' name='ime'>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Prezime:</td>
+                  <td>
+                    <input type='text' name='rezime'>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Zemlja:</td>
+                  <td>
+                    <select name='zemlja'>
+                      <?php while ($zemlja = $zemlje->fetch_array()) :  ?>
+                        <option> <?php echo $zemlja['Naziv']; ?> </option>
+                      <?php endwhile; ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Sport:</td>
+                  <td>
+                    <select name='sport'>
+                      <?php while ($sport = $sportovi->fetch_array()) :  ?>
+                        <option> <?php echo $sport['Naziv']; ?> </option>
+                      <?php endwhile; ?>
+                    </select>
+                  </td>
+                </tr>
 
 
-              <tr>
-                <td colspan='2'>
-                  <button>Pretrazi sportistu</button>
-                </td>
-              </tr>
+                <tr>
+                  <td colspan='2'>
+                    <button type="submit" id="dodaj">Dodaj sportistu</button>
+                    <button type="submit" id="pretrazi">Pretrazi sportistu</button>
 
-            </table>
+                  </td>
+                </tr>
 
+              </table>
+            </form>
           </div>
           <div>
             <div>
@@ -286,5 +290,9 @@ if ($rezultat->num_rows ==  0) {
                 }
               </style>
             </head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
+  </body>
 
-            </html>
+  </html>

@@ -78,13 +78,13 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
               <tr>
                 <td>Korime:</td>
                 <td>
-                  <input type='text' name='username'>
+                  <input type='text' name='username' required>
                 </td>
               </tr>
               <tr>
                 <td>Lozinka:</td>
                 <td>
-                  <input type='text' name='password'>
+                  <input type='password' name='password' required>
                 </td>
               </tr>
 
