@@ -18,6 +18,12 @@ class Sportista
         $this->zemlja = $zemlja;
     }
 
+    public function add(mysqli $conn)
+    {
+        $query = "INSERT INTO sportista VALUES ($this->ime,$this->prezime,$this->sport,$this->zemlja)";
+        return $conn->query($query);
+    }
+
     public static function getAll(mysqli $conn)
     {
         $query = "SELECT * FROM Sportista";
