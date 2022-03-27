@@ -22,4 +22,10 @@ class Sport
         $query = "SELECT * FROM sport WHERE idSporta = $id";
         return $conn->query($query);
     }
+
+    public static function getByName($name, mysqli $conn)
+    {
+        $query = "SELECT * FROM sport WHERE naziv ='$name'";
+        return $conn->query($query);
+    }
 }
