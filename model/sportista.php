@@ -24,6 +24,13 @@ class Sportista
         return $conn->query($query);
     }
 
+    public static function update($sportista, mysqli $conn)
+    {
+        $query = "UPDATE Sportista SET ime = '$sportista->ime', prezime = '$sportista->prezime',
+        zemlja = $sportista->zemlja,sport = $sportista->sport  WHERE idSportiste = $sportista->id";
+        return $conn->query($query);
+    }
+
     public static function getAll(mysqli $conn)
     {
         $query = "SELECT * FROM Sportista";
