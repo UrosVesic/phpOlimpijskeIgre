@@ -60,7 +60,7 @@ $('#obrisi').click(function(){
     request.done(function(response, textStatus, jqXHR){
         if(response==="Success"){
             red.closest('tr').remove();
-             alert("obrisan red");
+             alert("Sportista je obrisan");
         }
         else alert("Sportista nije obrisan "+ response);
     });
