@@ -95,13 +95,13 @@ if ($rezultat->num_rows ==  0) {
                 <tr>
                   <td>Ime:</td>
                   <td>
-                    <input type='text' name='ime'>
+                    <input type='text' name='ime' required>
                   </td>
                 </tr>
                 <tr>
                   <td>Prezime:</td>
                   <td>
-                    <input type='text' name='prezime'>
+                    <input type='text' name='prezime' required>
                   </td>
                 </tr>
                 <tr>
@@ -137,7 +137,7 @@ if ($rezultat->num_rows ==  0) {
                 </tr>
 
               </table>
-            </form>
+
           </div>
           <div>
             <div>
@@ -183,6 +183,7 @@ if ($rezultat->num_rows ==  0) {
                     </tr>
                 </tbody>
               </table>
+              </form>
             </div>
 
 
