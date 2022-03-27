@@ -60,15 +60,13 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-        </ul>
       </div>
     </div>
   </nav>
 
   <div class="container">
     <div class="row">
+      <div class="col-sm-4"></div>
       <div class="col-sm-4">
         <h2>Prijava</h2>
 
